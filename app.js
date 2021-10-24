@@ -8,9 +8,7 @@ const logger = require('morgan')
 const ensureXHRRequest = require('./middlewares/ensureXHRRequest')
 const httpErrorHandler = require("./middlewares/httpErrorHandler")
 
-const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
-const authRouter = require('./routes/auth')
+const {authRouter} = require('./routes')
 
 const app = express()
 // view engine setup
@@ -23,8 +21,6 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
 app.use('/api', ensureXHRRequest(), authRouter)
 
 // catch 404 and forward to error handler

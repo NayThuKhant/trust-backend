@@ -1,11 +1,15 @@
 const jwt = require('jsonwebtoken')
-const Jwt = require('../models/jwt')
+const {Jwt, User} = require('../models')
 const {handleError} = require('../helpers/general')
 
 async function generateTokenForUser(userId) {
     const personalAccessToken = await Jwt.create({
         user: userId
     })
+
+    await User.findByIdAndUpdate(userId, {
+        $push: {jwts : personalAccessToken._id}
+    }, {new: true, useFindAndModify: false})
 
     return jwt.sign({sub: 'Personal Access Token', user_id: userId, jwtid: personalAccessToken._id},
         process.env.JWT_SECRET,
@@ -19,8 +23,8 @@ async function getAuthenticatedUser(token) {
         const jwtRecord = await Jwt.findById(payload.jwtid).populate('user')
         if (jwtRecord.active) {
             return {
-                user : jwtRecord.user,
-                jwt : jwtRecord
+                user: jwtRecord.user,
+                jwt: jwtRecord
             }
         }
         return {user: null, jwt: null}
@@ -29,9 +33,19 @@ async function getAuthenticatedUser(token) {
     }
 }
 
-async function revoke(req, res) {
-    try{
-        await Jwt.findOneAndUpdate({'_id': req.jwt._id}, {'revoked_at': Date.now()})
+async function revoke(req, res, logoutOfAllSessions) {
+    try {
+        if (logoutOfAllSessions) {
+            const user = await User.findById(req.user._id).populate({path: 'jwts', model: 'Jwt'})
+            const tokens = await user.jwts
+            tokens.forEach((token) => {
+                token.revoked_at = Date.now()
+                token.save()
+            })
+            console.log(tokens)
+        } else {
+            await Jwt.findOneAndUpdate({'_id': req.jwt._id}, {'revoked_at': Date.now()})
+        }
     } catch (error) {
         handleError(error, res)
     }

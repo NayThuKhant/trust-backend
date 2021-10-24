@@ -23,7 +23,11 @@ const userSchema = new mongoose.Schema({
     updated_at: {
         type: Date,
         default: null
-    }
+    },
+    jwts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 userSchema.path('email').validate((val) => {
