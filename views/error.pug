@@ -1,6 +1,12 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  div(class="flex-and-align-center error-page-container")
+    div(class="flex-and-align-center")
+        p(style="display: inline") #{statusCode}
+        p="|"
+        p(style="display: inline") #{message}
+    pre #{error.stack}
+
+
+

@@ -7,7 +7,7 @@ const validate = require('../validators/user')
 const {handleError} = require('../helpers/general')
 const {generateTokenForUser, revoke} = require('../helpers/jwt')
 const bcrypt = require('bcrypt')
-const jwtAuth = require('../middlewares/jwt_auth')
+const jwtAuth = require('../middlewares/jwtAuth')
 
 
 router.post('/register', validate('register'), async (req, res) => {

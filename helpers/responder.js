@@ -36,6 +36,15 @@ module.exports = {
         })
     },
 
+    rawServerErrorResponse: (code,error, statusCode, res) => {
+        console.log(error)
+        return res.status(statusCode).json({
+            code: code,
+            message: error ?? "Something went wrong"
+        })
+    },
+
+
     successResponse: (data, res, message = 'Success') => {
         return res.json({
             code: "Success",
@@ -44,14 +53,14 @@ module.exports = {
         })
     },
 
-    unauthorizedResponse : (res) => {
+    unauthorizedResponse: (res) => {
         return res.status(401).json({
             code: "Failed",
             message: "Unauthorized"
         })
     },
 
-    ensureXHRResponse : (res) => {
+    ensureXHRResponse: (res) => {
         return res.status(400).json({
             code: "Failed",
             message: "X-Requested-With - XMLHttpRequest Header is not found on the request"
