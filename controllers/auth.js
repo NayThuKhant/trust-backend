@@ -5,7 +5,9 @@ const bcrypt = require('bcrypt')
 
 module.exports = {
     register: async (req, res, validatedResult) => {
-        responder.initialValidateResponse(validatedResult, res)
+        if (!validatedResult.isEmpty()) {
+            return responder.initialValidateResponse(validatedResult, res);
+        }
 
         const {username, email, password} = req.body
         try {
@@ -23,7 +25,9 @@ module.exports = {
     },
 
     login: async (req, res, validatedResult) => {
-        responder.initialValidateResponse(validatedResult, res)
+        if (!validatedResult.isEmpty()) {
+            return responder.initialValidateResponse(validatedResult, res);
+        }
 
         const {email, password} = req.body
         try {
@@ -49,6 +53,6 @@ module.exports = {
     logout: async (req, res) => {
         const logoutOfAllSessions = req.body.logout_of_all_sessions
         await jwtHelper.revoke(req, res, logoutOfAllSessions)
-        responder.successResponse(req.user, res, "Logged Out successfully")
+        responder.successResponse(req.user, res, logoutOfAllSessions ? "Logged Out Of All Sessions successfully" : "Logout Out Successfully")
     }
 }

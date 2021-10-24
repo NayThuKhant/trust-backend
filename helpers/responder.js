@@ -1,12 +1,12 @@
 module.exports = {
     initialValidateResponse: (errors, res) => {
-        if (!errors.isEmpty()) {
-            return res.status(422).json({
-                code: "Failed",
-                message: "Validation Failed",
-                errors: errors.errors
-            });
-        }
+
+        return res.status(422).json({
+            code: "Failed",
+            message: "Validation Failed",
+            errors: errors.errors
+        });
+
     },
 
     modelValidationResponse: (errors, res) => {
@@ -36,7 +36,7 @@ module.exports = {
         })
     },
 
-    rawServerErrorResponse: (code,error, statusCode, res) => {
+    rawServerErrorResponse: (code, error, statusCode, res) => {
         console.log(error)
         return res.status(statusCode).json({
             code: code,
@@ -46,6 +46,8 @@ module.exports = {
 
 
     successResponse: (data, res, message = 'Success') => {
+        data = JSON.parse(JSON.stringify(data))
+        delete data.jwts
         return res.json({
             code: "Success",
             message,
