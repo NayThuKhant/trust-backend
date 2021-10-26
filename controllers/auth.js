@@ -1,5 +1,5 @@
 const {responder} = require('../helpers')
-const {jwtHelper, generalHelper} = require('../helpers')
+const {jwtHelper, generalHelper, accountHelper} = require('../helpers')
 const {User} = require('../models')
 const bcrypt = require('bcrypt')
 
@@ -15,12 +15,13 @@ module.exports = {
             const passwordHash = await bcrypt.hash(password, salt)
 
             let user = await User.create({username, email, password: passwordHash})
+            await accountHelper.createAnAccountForUser(user._id)
             user = JSON.parse(JSON.stringify(user))
             user.token = await jwtHelper.generateTokenForUser(user._id)
-            responder.successResponse(user, res, "Registered successfully")
+            return responder.successResponse(user, res, "Registered successfully")
 
         } catch (error) {
-            generalHelper.handleError(error, res)
+            return generalHelper.handleError(error, res)
         }
     },
 
@@ -36,23 +37,23 @@ module.exports = {
                 user = JSON.parse(JSON.stringify(user))
                 user.token = await jwtHelper.generateTokenForUser(user._id)
                 delete user.password
-                responder.successResponse(user, res, "Logged In successfully")
+                return responder.successResponse(user, res, "Logged In successfully")
             } else {
-                responder.unauthorizedResponse(res)
+                return responder.unauthorizedResponse(res)
             }
         } catch (error) {
             console.log(error)
-            generalHelper.handleError()
+            return generalHelper.handleError()
         }
     },
 
     me: async (req, res) => {
-        responder.successResponse(req.user, res)
+        return responder.successResponse(req.user, res)
     },
 
     logout: async (req, res) => {
         const logoutOfAllSessions = req.body.logout_of_all_sessions
         await jwtHelper.revoke(req, res, logoutOfAllSessions)
-        responder.successResponse(req.user, res, logoutOfAllSessions ? "Logged Out Of All Sessions successfully" : "Logout Out Successfully")
+        return responder.successResponse(req.user, res, logoutOfAllSessions ? "Logged Out Of All Sessions successfully" : "Logout Out Successfully")
     }
 }

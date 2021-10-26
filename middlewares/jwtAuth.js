@@ -12,10 +12,10 @@ module.exports = function () {
                 req.jwt = jwt
                 return next()
             } else {
-                responder.unauthorizedResponse(res)
+                return responder.unauthorizedResponse(res)
             }
         } else {
-            responder.unauthorizedResponse(res)
+            return responder.unauthorizedResponse(res)
         }
     }
 }

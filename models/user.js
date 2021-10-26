@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: null
     },
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account'
+    },
     jwts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
