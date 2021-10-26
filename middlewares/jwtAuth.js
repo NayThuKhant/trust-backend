@@ -6,10 +6,11 @@ module.exports = function () {
         let token = req.headers.authorization
 
         if (token) {
-            const {user, jwt} = await getAuthenticatedUser(token)
-            if (user && jwt) {
+            const {user, jwt, account} = await getAuthenticatedUser(token)
+            if (user && jwt && account) {
                 req.user = user
                 req.jwt = jwt
+                req.account = account
                 return next()
             } else {
                 return responder.unauthorizedResponse(res)

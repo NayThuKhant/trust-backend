@@ -5,10 +5,9 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-const ensureXHRRequest = require('./middlewares/ensureXHRRequest')
+const {ensureXHRMiddleware, jwtAuthMiddleware} = require('./middlewares')
 const httpErrorHandler = require("./middlewares/httpErrorHandler")
-
-const {authRouter} = require('./routes')
+const {authRouter, accountRouter, transactionRouter} = require('./routes')
 
 const app = express()
 // view engine setup
@@ -21,7 +20,9 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/api', ensureXHRRequest(), authRouter)
+app.use('/api', ensureXHRMiddleware(), authRouter)
+app.use('/api', ensureXHRMiddleware(), jwtAuthMiddleware(), accountRouter)
+app.use('/api', ensureXHRMiddleware(), jwtAuthMiddleware(), transactionRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

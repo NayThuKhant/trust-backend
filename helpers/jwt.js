@@ -8,7 +8,7 @@ async function generateTokenForUser(userId) {
     })
 
     await User.findByIdAndUpdate(userId, {
-        $push: {jwts : personalAccessToken._id}
+        $push: {jwts: personalAccessToken._id}
     }, {new: true, useFindAndModify: false})
 
     return jwt.sign({sub: 'Personal Access Token', user_id: userId, jwtid: personalAccessToken._id},
@@ -20,11 +20,18 @@ async function getAuthenticatedUser(token) {
     let jwtToken = token.replace('Bearer ', '')
     try {
         const payload = await jwt.verify(jwtToken, process.env.JWT_SECRET)
-        const jwtRecord = await Jwt.findById(payload.jwtid).populate('user')
+        const jwtRecord = await Jwt.findById(payload.jwtid).populate({
+            path: 'user',
+            populate: {
+                path: 'account'
+            }
+        })
+
         if (jwtRecord.active) {
             return {
                 user: jwtRecord.user,
-                jwt: jwtRecord
+                jwt: jwtRecord,
+                account: jwtRecord.user.account
             }
         }
         return {user: null, jwt: null}

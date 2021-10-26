@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const jwtSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.virtual('active').get(function () {
+jwtSchema.virtual('active').get(function () {
     return !this.revoked_at
 });
 
-module.exports = mongoose.model('Jwt', userSchema)
+module.exports = mongoose.model('Jwt', jwtSchema)

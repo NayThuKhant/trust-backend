@@ -15,9 +15,10 @@ module.exports = {
             const passwordHash = await bcrypt.hash(password, salt)
 
             let user = await User.create({username, email, password: passwordHash})
-            await accountHelper.createAnAccountForUser(user._id)
+            const account = await accountHelper.createAnAccountForUser(user._id)
             user = JSON.parse(JSON.stringify(user))
             user.token = await jwtHelper.generateTokenForUser(user._id)
+            user.account = account._id
             return responder.successResponse(user, res, "Registered successfully")
 
         } catch (error) {
@@ -42,18 +43,25 @@ module.exports = {
                 return responder.unauthorizedResponse(res)
             }
         } catch (error) {
-            console.log(error)
-            return generalHelper.handleError()
+            return generalHelper.handleError(error, res)
         }
     },
 
     me: async (req, res) => {
-        return responder.successResponse(req.user, res)
+        try {
+            return responder.successResponse(req.user, res)
+        } catch (error) {
+            generalHelper.handleError(error, res)
+        }
     },
 
     logout: async (req, res) => {
-        const logoutOfAllSessions = req.body.logout_of_all_sessions
-        await jwtHelper.revoke(req, res, logoutOfAllSessions)
-        return responder.successResponse(req.user, res, logoutOfAllSessions ? "Logged Out Of All Sessions successfully" : "Logout Out Successfully")
+        try {
+            const logoutOfAllSessions = req.body.logout_of_all_sessions
+            await jwtHelper.revoke(req, res, logoutOfAllSessions)
+            return responder.successResponse(req.user, res, logoutOfAllSessions ? "Logged Out Of All Sessions successfully" : "Logout Out Successfully")
+        } catch (error) {
+            return generalHelper.handleError(error, res)
+        }
     }
 }

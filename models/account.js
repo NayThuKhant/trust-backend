@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const accountSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -18,4 +18,4 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Account', userSchema)
+module.exports = mongoose.model('Account', accountSchema)
