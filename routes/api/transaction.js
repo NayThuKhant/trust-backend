@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const {transactionController} = require('../controllers')
+const {apiControllers} = require('../../controllers')
+const {transactionController} = apiControllers
 
 router.get('/transactions', async (req, res) => {
     return await transactionController.getTransactions(req, res)

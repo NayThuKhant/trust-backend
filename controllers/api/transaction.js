@@ -1,5 +1,5 @@
-const {responder, generalHelper} = require('../helpers')
-const {Transaction} = require("../models");
+const {responder, generalHelper} = require('../../helpers')
+const {Transaction} = require("../../models");
 
 module.exports = {
     getTransactions: async (req, res) => {
@@ -13,9 +13,9 @@ module.exports = {
             const formattedTransactions = transactions.map((transaction) => {
                 let type;
                 if (transaction.from_user._id.toString() === userId.toString()) {
-                    type = 'from'
+                    type = 'paid'
                 } else if (transaction.to_user._id.toString() === userId.toString()) {
-                    type = 'to'
+                    type = 'received'
                 }
                 const {_id, from_user, to_user, created_at} = transaction
                 transaction = {type, _id, from_user, to_user, created_at}

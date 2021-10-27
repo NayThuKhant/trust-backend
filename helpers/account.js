@@ -5,7 +5,7 @@ module.exports = {
     createAnAccountForUser: async (userId) => {
         const account = await Account.create({
             user: userId,
-            total: 100000
+            total: 0
         })
 
         await User.findByIdAndUpdate(userId, {

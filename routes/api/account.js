@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const {accountController} = require('../controllers')
-const {accountValidator} = require('../request-validators')
+const {apiControllers} = require('../../controllers')
+const {accountController} = apiControllers
+const {accountValidator} = require('../../request-validators')
 const {validationResult} = require('express-validator');
 
 router.get('/account-details', async (req, res) => {

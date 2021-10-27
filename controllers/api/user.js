@@ -1,5 +1,5 @@
-const {responder, generalHelper} = require('../helpers')
-const {User} = require("../models");
+const {responder, generalHelper} = require('../../helpers')
+const {User} = require("../../models");
 
 module.exports = {
     receiver: async (req, res, validatedResult) => {

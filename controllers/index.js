@@ -1,6 +1,8 @@
 module.exports = {
-    authController: require('./auth'),
-    accountController: require('./account'),
-    transactionController: require('./transaction'),
-    userController: require('./user')
+    apiControllers: {
+        authController: require('./api/auth'),
+        accountController: require('./api/account'),
+        transactionController: require('./api/transaction'),
+        userController: require('./api/user')
+    }
 }

@@ -1,6 +1,8 @@
 module.exports = {
-  authRouter : require('./auth'),
-  accountRouter : require('./account'),
-  transactionRouter: require('./transaction'),
-  userRouter: require('./user')
+  apiRouters: {
+    authRouter : require('./api/auth'),
+    accountRouter : require('./api/account'),
+    transactionRouter: require('./api/transaction'),
+    userRouter: require('./api/user')
+  }
 }

@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const {ensureXHRMiddleware, jwtAuthMiddleware} = require('./middlewares')
 const httpErrorHandler = require("./middlewares/httpErrorHandler")
-const apiRouters = require('./routes')
+const routers = require('./routes')
 
 const app = express()
 //view engine
@@ -29,7 +29,7 @@ const protectedRouterMiddlewares = [ensureXHRMiddleware(), jwtAuthMiddleware()]
 const dirtyApiRoutePrefix = process.env.API_PREFIX
 const apiRoutePrefix = `/${dirtyApiRoutePrefix.replace('/', '')}`
 
-Object.entries(apiRouters).forEach(([key, router]) => {
+Object.entries(routers.apiRouters).forEach(([key, router]) => {
     if (publicApiRouters.includes(key)) {
         app.use(apiRoutePrefix, publicRouterMiddlewares, router)
     }else {

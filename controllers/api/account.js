@@ -1,6 +1,6 @@
-const {responder} = require('../helpers')
-const {Account} = require('../models')
-const {generalHelper, accountHelper} = require('../helpers')
+const {responder} = require('../../helpers')
+const {Account} = require('../../models')
+const {generalHelper, accountHelper} = require('../../helpers')
 
 module.exports = {
     getAccountDetails: async (req, res) => {

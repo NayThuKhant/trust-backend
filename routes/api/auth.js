@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const {validationResult} = require('express-validator');
-const {userValidator} = require('../request-validators')
-const {jwtAuthMiddleware} = require('../middlewares')
-const {authController} = require('../controllers')
+const {userValidator} = require('../../request-validators')
+const {jwtAuthMiddleware} = require('../../middlewares')
+const {apiControllers} = require('../../controllers')
+const {authController} = apiControllers
 
 router.post('/register', userValidator('register'), async (req, res) => {
     return await authController.register(req, res, validationResult(req))

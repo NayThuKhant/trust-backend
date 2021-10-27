@@ -1,6 +1,6 @@
-const {responder} = require('../helpers')
-const {jwtHelper, generalHelper, accountHelper} = require('../helpers')
-const {User} = require('../models')
+const {responder} = require('../../helpers')
+const {jwtHelper, generalHelper, accountHelper} = require('../../helpers')
+const {User} = require('../../models')
 const bcrypt = require('bcrypt')
 
 module.exports = {
@@ -51,7 +51,7 @@ module.exports = {
         try {
             return responder.successResponse(req.user, res)
         } catch (error) {
-            generalHelper.handleError(error, res)
+            return await generalHelper.handleError(error, res)
         }
     },
 
