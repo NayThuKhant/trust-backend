@@ -1,5 +1,5 @@
 const {Account, User, Transaction} = require('../models')
-const {generalHelper} = require('../helpers')
+const {generalHelper} = require('./general')
 
 module.exports = {
     createAnAccountForUser: async (userId) => {

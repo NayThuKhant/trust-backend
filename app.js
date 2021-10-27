@@ -26,8 +26,8 @@ const publicApiRouters = ['authRouter']
 const publicRouterMiddlewares = [ensureXHRMiddleware()]
 const protectedRouterMiddlewares = [ensureXHRMiddleware(), jwtAuthMiddleware()]
 
-const dirtyApiRoutePrefix = '/' + process.env.API_PREFIX
-const apiRoutePrefix = dirtyApiRoutePrefix.replace('//', '/')
+const dirtyApiRoutePrefix = process.env.API_PREFIX
+const apiRoutePrefix = `/${dirtyApiRoutePrefix.replace('/', '')}`
 
 Object.entries(apiRouters).forEach(([key, router]) => {
     if (publicApiRouters.includes(key)) {
