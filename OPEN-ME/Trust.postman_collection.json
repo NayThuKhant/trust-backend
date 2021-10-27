@@ -1,0 +1,953 @@
+{
+	"info": {
+		"_postman_id": "7f200da3-9bca-4448-9ac9-a3e12045cfa8",
+		"name": "Trust",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response\r",
+									"\r",
+									"if(response.code == 200){\r",
+									"    const {token} = response.json().data\r",
+									"    pm.collectionVariables.set('token', token)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Trust\",\r\n    \"email\": \"trust1@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Trust\",\r\n    \"email\": \"trust@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:43:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "593"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"251-rodJCUwDPSN264R34oXAW/WUXvk\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Registered successfully\",\n    \"data\": {\n        \"username\": \"Trust\",\n        \"email\": \"trust@gmail.com\",\n        \"password\": \"$2b$10$IsBjlXT4Utx2BRXkyZfgF.dtYyF0vnCdUIrV/ov97NV66aCKwifu6\",\n        \"created_at\": \"2021-10-27T09:41:59.103Z\",\n        \"updated_at\": null,\n        \"_id\": \"61791f3641fdd048baa22f4f\",\n        \"__v\": 0,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJQZXJzb25hbCBBY2Nlc3MgVG9rZW4iLCJ1c2VyX2lkIjoiNjE3OTFmMzY0MWZkZDA0OGJhYTIyZjRmIiwiand0aWQiOiI2MTc5MWYzNjQxZmRkMDQ4YmFhMjJmNTUiLCJpYXQiOjE2MzUzMjc3OTgsImV4cCI6MTYzNTkzMjU5OH0.hi0aTmC1t7es0Bn1dCq0Idm0MFqdrTkqetoFH68-YkY\",\n        \"account\": \"61791f3641fdd048baa22f52\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response\r",
+									"\r",
+									"if(response.code == 200){\r",
+									"    const token = response.json().data.token\r",
+									"    pm.globals.environment.set('token', `Bearer ${token}`)\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"naythukhant@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trust@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:43:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "518"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"206-TLJISrn3nzSN5cwCaezd0f4I5js\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Logged In successfully\",\n    \"data\": {\n        \"_id\": \"61791f3641fdd048baa22f4f\",\n        \"username\": \"Trust\",\n        \"email\": \"trust@gmail.com\",\n        \"created_at\": \"2021-10-27T09:41:59.103Z\",\n        \"updated_at\": null,\n        \"__v\": 0,\n        \"account\": \"61791f3641fdd048baa22f52\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJQZXJzb25hbCBBY2Nlc3MgVG9rZW4iLCJ1c2VyX2lkIjoiNjE3OTFmMzY0MWZkZDA0OGJhYTIyZjRmIiwiand0aWQiOiI2MTc5MWY1NTQxZmRkMDQ4YmFhMjJmNWMiLCJpYXQiOjE2MzUzMjc4MjksImV4cCI6MTYzNTkzMjYyOX0.omw8BHEtDZUA8Qig0idckbRwsdSN3NGgCfgkfLEsq7w\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJQZXJzb25hbCBBY2Nlc3MgVG9rZW4iLCJ1c2VyX2lkIjoiNjE3NTQ4YzgyMGViZThiNWU1YWFkM2NjIiwiand0aWQiOiI2MTc1NDhjODIwZWJlOGI1ZTVhYWQzY2YiLCJpYXQiOjE2MzUwNzYyOTYsImV4cCI6MTYzNTY4MTA5Nn0.squKR4V7ppdkgTbzX-qp3rfn-YCdGz_6TiD8g5l-Vcw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"logout_of_all_sessions\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"logout_of_all_sessions\" : false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:44:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "344"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"158-RJAUSt0RWjRecJfJGnc3kNjloo0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Logout Out Successfully\",\n    \"data\": {\n        \"_id\": \"61791f3641fdd048baa22f4f\",\n        \"username\": \"Trust\",\n        \"email\": \"trust@gmail.com\",\n        \"created_at\": \"2021-10-27T09:41:59.103Z\",\n        \"updated_at\": null,\n        \"__v\": 0,\n        \"account\": {\n            \"_id\": \"61791f3641fdd048baa22f52\",\n            \"user\": \"61791f3641fdd048baa22f4f\",\n            \"total\": 0,\n            \"created_at\": \"2021-10-27T09:41:59.123Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						},
+						{
+							"name": "Logout of all sessions",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"logout_of_all_sessions\" : true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:44:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-awKhMzlUnKYobydS9uIy3828fq4\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Logged Out Of All Sessions successfully\",\n    \"data\": {\n        \"_id\": \"61791f3641fdd048baa22f4f\",\n        \"username\": \"Trust\",\n        \"email\": \"trust@gmail.com\",\n        \"created_at\": \"2021-10-27T09:41:59.103Z\",\n        \"updated_at\": null,\n        \"__v\": 0,\n        \"account\": {\n            \"_id\": \"61791f3641fdd048baa22f52\",\n            \"user\": \"61791f3641fdd048baa22f4f\",\n            \"total\": 0,\n            \"created_at\": \"2021-10-27T09:41:59.123Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Me",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Me",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/me",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:43:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "328"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"148-PPudoC682OYzKGaSka92UxQcQYQ\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Success\",\n    \"data\": {\n        \"_id\": \"61791f3641fdd048baa22f4f\",\n        \"username\": \"Trust\",\n        \"email\": \"trust@gmail.com\",\n        \"created_at\": \"2021-10-27T09:41:59.103Z\",\n        \"updated_at\": null,\n        \"__v\": 0,\n        \"account\": {\n            \"_id\": \"61791f3641fdd048baa22f52\",\n            \"user\": \"61791f3641fdd048baa22f4f\",\n            \"total\": 0,\n            \"created_at\": \"2021-10-27T09:41:59.123Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transfer",
+			"item": [
+				{
+					"name": "Get Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/account-details",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"account-details"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Account",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/account-details",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"account-details"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:45:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "172"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ac-Vc3V4w2NgXKCPtUeYK0fckTaz5g\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Success\",\n    \"data\": {\n        \"_id\": \"61791f3641fdd048baa22f52\",\n        \"user\": \"61791f3641fdd048baa22f4f\",\n        \"total\": 0,\n        \"created_at\": \"2021-10-27T09:41:59.123Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Receiver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": [
+						{
+							"name": "Get Receiver",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trust@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/receiver",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"receiver"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:46:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "125"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7d-b5dbP6KEiX7L2lsXxQBsoKD0K1o\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Success\",\n    \"data\": {\n        \"_id\": \"61791f3641fdd048baa22f4f\",\n        \"email\": \"trust@gmail.com\",\n        \"username\": \"Trust\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Transfer to another user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"fgafasdf\",\r\n    \"amount\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transfer",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transfer"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Transfer to another user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trust@gmail.com\",\r\n    \"amount\": 10000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/transfer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transfer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:46:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "329"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"149-A3K2C2bFVArp1LdL0x4Pq4ErJSM\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Success\",\n    \"data\": {\n        \"_id\": \"61791fdb9bd070535ee93a26\",\n        \"username\": \"Trust\",\n        \"email\": \"trust1@gmail.com\",\n        \"created_at\": \"2021-10-27T09:46:00.146Z\",\n        \"updated_at\": null,\n        \"__v\": 0,\n        \"account\": {\n            \"_id\": \"61791fdb9bd070535ee93a29\",\n            \"user\": \"61791fdb9bd070535ee93a26\",\n            \"total\": 0,\n            \"created_at\": \"2021-10-27T09:46:00.157Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Get Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": [
+						{
+							"name": "Get Transactions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Requested-With",
+										"value": "XMLHttpRequest",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"transactions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.16.0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Oct 2021 09:47:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "595"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"253-dLqWxqvWjfTTUx1ajQJsQvgLvbs\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"Success\",\n    \"message\": \"Success\",\n    \"data\": [\n        {\n            \"type\": \"received\",\n            \"_id\": \"61791ff09bd070535ee93a42\",\n            \"from_user\": {\n                \"_id\": \"61791fdb9bd070535ee93a26\",\n                \"username\": \"Trust\",\n                \"email\": \"trust1@gmail.com\"\n            },\n            \"to_user\": {\n                \"_id\": \"61791f3641fdd048baa22f4f\",\n                \"username\": \"Trust\",\n                \"email\": \"trust@gmail.com\"\n            },\n            \"created_at\": \"2021-10-27T09:46:00.158Z\"\n        },\n        {\n            \"type\": \"paid\",\n            \"_id\": \"617920359bd070535ee93a7f\",\n            \"from_user\": {\n                \"_id\": \"61791f3641fdd048baa22f4f\",\n                \"username\": \"Trust\",\n                \"email\": \"trust@gmail.com\"\n            },\n            \"to_user\": {\n                \"_id\": \"61791fdb9bd070535ee93a26\",\n                \"username\": \"Trust\",\n                \"email\": \"trust1@gmail.com\"\n            },\n            \"created_at\": \"2021-10-27T09:46:00.158Z\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "api.trust.local/api"
+		},
+		{
+			"key": "token",
+			"value": "token"
+		}
+	]
+}
