@@ -22,8 +22,6 @@ module.exports = {
                 return transaction
             })
 
-            console.log(formattedTransactions)
-
             return await responder.successResponse(formattedTransactions, res)
         } catch (error) {
             return generalHelper.handleError(error, res)

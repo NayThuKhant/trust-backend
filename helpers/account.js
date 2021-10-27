@@ -16,18 +16,17 @@ module.exports = {
 
     transfer: async (req, res, account, total, amount,) => {
         let toUser, toUserAccount, toUserAccountTotal, transaction
-        toUser = await User.findById(req.body.user_id).populate('account')
+        toUser = await User.findOne({email: req.body.email}).populate('account')
         toUserAccount = toUser.account
         toUserAccountTotal = toUserAccount.total
 
-
         try {
-            await account.update({
+            await account.updateOne({
                 total: total - amount,
                 updated_at: Date.now()
             })
 
-            await toUserAccount.update({
+            await toUserAccount.updateOne({
                 total: toUserAccountTotal + amount,
                 updated_at: Date.now()
             })
@@ -39,6 +38,7 @@ module.exports = {
             })
 
             req.user.account.total = total - amount
+            console.log(req.user)
         } catch (error) {
             console.log(error)
             await resetTransaction(account, total, toUserAccount, toUserAccountTotal, transaction, res)
@@ -49,11 +49,11 @@ module.exports = {
 
 const resetTransaction = async (account, total, toUserAccount, toUserAccountTotal,transaction, res) => {
     try {
-        await account.update({
+        await account.updateOne({
             total
         })
 
-        await toUserAccount.update({
+        await toUserAccount.updateOne({
             total: toUserAccountTotal
         })
 

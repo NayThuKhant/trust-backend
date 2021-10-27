@@ -18,11 +18,11 @@ module.exports = {
         const amount = body.amount
         const total = account.total
 
-        if (req.user._id.toString() === body.user_id) {
+        if (req.user.email.toString() === body.email) {
             validatedResult.errors.push({
                 value: body.user_id,
                 msg: 'You cant transfer to yourself',
-                param: 'user_id',
+                param: 'email',
                 location: 'body'
             })
         }

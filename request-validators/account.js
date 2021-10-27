@@ -6,11 +6,11 @@ const validate = (method) => {
         case "transfer":
             const userErrorMessage = 'User not found on the system'
             return [
-                body('user_id')
-                    .isString()
-                    .custom(async (userId) => {
+                body('email')
+                    .isEmail()
+                    .custom(async (email) => {
                         try {
-                            const user = await User.findById(userId)
+                            const user = await User.findOne({email})
                             if (!user) {
                                 throw new Error(userErrorMessage)
                             }
