@@ -1,7 +1,7 @@
 const {responder} = require('../../helpers')
 const {jwtHelper, generalHelper, accountHelper} = require('../../helpers')
 const {User} = require('../../models')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt-nodejs')
 
 module.exports = {
     register: async (req, res, validatedResult) => {
