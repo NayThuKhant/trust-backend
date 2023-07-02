@@ -1,4 +1,4 @@
-# Trust
+# Trust (Demo project)
   
 ## Installation
 
